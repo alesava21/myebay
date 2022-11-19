@@ -1,5 +1,6 @@
 package it.prova.myebay.model;
 
-public class StatoUtente {
+public enum StatoUtente {
+	ATTIVO,DISABILITATO,CREATO
 
 }
