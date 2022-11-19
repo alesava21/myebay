@@ -1,19 +1,17 @@
 <!doctype html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="it" class="h-100" >
 	 <head>
 	 
 	 	<!-- Common imports in pages -->
 	 	<jsp:include page="./header.jsp" />
 		<!-- Custom styles per le features di bootstrap 'Columns with icons' -->
-	   <link href="${pageContext.request.contextPath}/assets/css/features.css" rel="stylesheet">
+	   <link href="./assets/css/features.css" rel="stylesheet">
 	   
-	   <title>Raccolta Film</title>
+	   <title>My Ebay</title>
 	 </head>
 	   <body class="d-flex flex-column h-100">
-	   		
-	   		<!-- #####################################  -->
-	   		<!-- elementi grafici per le features in basso  -->
-	   		<!-- #####################################  -->
+	   
 	   		<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 			  <symbol id="people-circle" viewBox="0 0 16 16">
 			    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -31,70 +29,70 @@
 			    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
 			  </symbol>
 			</svg>
-			<!-- ############## end ###################  -->
-	   
-	   
 	   
 	   		<!-- Fixed navbar -->
 	   		<jsp:include page="./navbar.jsp"></jsp:include>
 	    
-			
 			<!-- Begin page content -->
 			<main class="flex-shrink-0">
 			  <div class="container">
 			  
-			  	<div class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none':'' }" role="alert">
-				  ${errorMessage}
-				  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
-				</div>
-			    
-			     <div class="p-5 mb-4 bg-light rounded-3">
-				      <div class="container-fluid py-5">
-				        <h1 class="display-5 fw-bold">Benvenuto alla Raccolta Film</h1>
-				        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. </p>
-				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/regista/search">Vai a Ricerca</a>
-				      </div>
-			    </div>
-			    
-			  </div>
+			  <div class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none':'' }" role="alert">
+					  ${errorMessage}
+					  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
+					</div>
 			  
-			  <!--  features di bootstrap 'Columns with icons'  -->
-			  <div class="container px-4 py-5" id="featured-3">
-			    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-			      <div class="feature col">
-			        <div class="feature-icon bg-primary bg-gradient">
-			          <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"/></svg>
-			        </div>
-			        <h2>Ricerca Registi</h2>
-			        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-			        <a href="${pageContext.request.contextPath}/regista/search" class="icon-link">
-			          Vai alla funzionalità
-			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
-			        </a>
-			      </div>
-			      <div class="feature col">
-			        <div class="feature-icon bg-primary bg-gradient">
-			          <svg class="bi" width="1em" height="1em"><use xlink:href="#people-circle"/></svg>
-			        </div>
-			        <h2>Inserisci Nuovo Regista</h2>
-			        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-			        <a href="${pageContext.request.contextPath}/regista/insert" class="icon-link">
-			          Vai alla funzionalità
-			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
-			        </a>
-			      </div>
-			      <div class="feature col">
-			        <div class="feature-icon bg-primary bg-gradient">
-			          <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
-			        </div>
-			        <h2>Ricerca Film</h2>
-			        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-			        <a href="${pageContext.request.contextPath}/film/search" class="icon-link">
-			          Vai alla funzionalità
-			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
-			        </a>
-			      </div>
-			    </div>
+			  <div class='card'>
+			  	<h1 class="display-2 text-center text-warning">BENVENUTO IN myEBAY</h1>
+			  		<div class="card">
+					  <div class="card-body">
+					  	<p>Benvenuto su <b class="text-warning">myEBAY</b>, da qui potrai acquistare ogni sorta di articolo che gli utenti mettono in mostra.
+					  	La navigazione e' libera, ma ricorda che per acquistare o pubblicare annunci bisogna registrarsi.</p>
+					  </div>
+					</div>
+				    <div class='card-header'>
+				        <h5>Ricerca annunci</h5> 
+				    </div>
+				    <div class='card-body'>
+		
+							<form method="post" action="ExecuteSearchAnnuncioServlet" class="row g-3" >
+							
+							
+								<div class="col-md-6">
+									<label for="annuncio" class="form-label">Annuncio:</label>
+									<input type="text" name="annuncio" id="annuncio" class="form-control" placeholder="Inserire il testo dell'annuncio" >
+								</div>
+								
+								<div class="col-md-6">
+									<label for="prezzo" class="form-label">Prezzo minimo:</label>
+									<input type="number" class="form-control" name="prezzo" id="prezzo" placeholder="Inserire il prezzo minimo" >
+								</div>
+								
+								<div class="col-md-12 form-check">
+									<p>Categorie:</p>
+									<c:forEach items="${search_categorie_attr}" var="categoriaEntry">
+										<div class="form-check">
+											  <input class="form-check-input" name="categoriaEntry" type="checkbox" value="${categoriaEntry.id}" id="categoriaEntry-${categoriaEntry.id}">
+											  <label class="form-check-label" for="categoriaEntry-${categoriaEntry.id}" >
+											    ${categoriaEntry.codice}
+											  </label>
+										</div>
+								  	</c:forEach>
+								</div>
+								
+								<div class="col-12">
+									<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Conferma</button>
+									<input class="btn btn-outline-warning" type="reset" value="Ripulisci">
+								</div>
+								
+						</form>
+  
+				   
+				    
+					<!-- end card-body -->			   
+				    </div>
+				<!-- end card -->
+				</div>		
 			  </div>
 			  
 			</main>
