@@ -16,7 +16,7 @@ public class HomeController {
 	
 	@RequestMapping(value = {"/home",""})
 	public String home(Model model) {
-		model.addAttribute("categorie_list_attribute", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
+		model.addAttribute("categorie_list_attribute", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAllCategorie()));
 		return "index";
 	}
 }
