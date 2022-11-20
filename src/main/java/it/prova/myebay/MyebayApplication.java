@@ -84,7 +84,6 @@ public class MyebayApplication implements CommandLineRunner{
 			//l'inserimento avviene come created ma io voglio attivarlo
 			utenteServiceInstance.changeUserAbilitation(classicUser2.getId());
 		}
-		
 	}
 
 }
