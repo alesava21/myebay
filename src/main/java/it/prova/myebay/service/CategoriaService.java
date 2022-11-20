@@ -3,7 +3,6 @@ package it.prova.myebay.service;
 import java.util.List;
 
 import it.prova.myebay.model.Categoria;
-import it.prova.myebay.model.Utente;
 
 public interface CategoriaService {
 	
