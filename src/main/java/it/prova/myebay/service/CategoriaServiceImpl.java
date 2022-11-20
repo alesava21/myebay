@@ -29,4 +29,28 @@ public class CategoriaServiceImpl implements CategoriaService {
 		return (List<Categoria>)categoriaRepository.findAll();
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<Categoria> listAllCategorie() {
+		return (List<Categoria>) categoriaRepository.findAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Categoria caricaSingoloCategoria(Long id) {
+		return categoriaRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	@Transactional
+	public void aggiorna(Categoria categoriaInstance) {
+		categoriaRepository.save(categoriaInstance);
+	}
+
+	@Override
+	@Transactional
+	public void rimuovi(Long idToDelete) {
+		categoriaRepository.deleteById(idToDelete);
+	}
+
 }

@@ -3,13 +3,14 @@ package it.prova.myebay.repository.utente;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import it.prova.myebay.model.StatoUtente;
 import it.prova.myebay.model.Utente;
 
-public interface UtenteRepository  extends CrudRepository<Utente, Long>{
+public interface UtenteRepository  extends CrudRepository<Utente, Long>,JpaSpecificationExecutor<Utente>{
 
 	@EntityGraph(attributePaths = { "ruoli" })
 	Optional<Utente> findByUsername(String username);
