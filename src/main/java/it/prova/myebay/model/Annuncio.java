@@ -1,10 +1,12 @@
 package it.prova.myebay.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,9 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="annuncio")
+@Table(name = "annuncio")
 public class Annuncio {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -26,18 +28,45 @@ public class Annuncio {
 	private String testoAnnuncio;
 	@Column(name = "prezzo")
 	private Integer prezzo;
-	@Column(name = "dateCreated")
-	private Date dateCreated;
+	@Column(name = "data")
+	private Date data;
 	@Column(name = "aperto")
 	private Boolean aperto;
-	
-	@ManyToOne
-	@JoinColumn(name="utente_id", nullable=false)
-	private Utente utenteInserimento;
-	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "utente_id", nullable = false)
+	private Utente utente;
+
 	@ManyToMany
 	@JoinTable(name = "annuncio_categoria", joinColumns = @JoinColumn(name = "annuncio_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "categoria_id", referencedColumnName = "ID"))
-	private Set<Categoria> categorie;
+	private Set<Categoria> categorie = new HashSet<>(0);
+
+	public Annuncio() {
+		super();
+	}
+
+	public Annuncio(Long id) {
+		super();
+		this.id = id;
+	}
+
+	public Annuncio(Long id, String testoAnnuncio, Integer prezzo, Date data, Boolean aperto, Utente utente) {
+		super();
+		this.id = id;
+		this.testoAnnuncio = testoAnnuncio;
+		this.prezzo = prezzo;
+		this.data = data;
+		this.aperto = aperto;
+		this.utente = utente;
+	}
+
+	public Annuncio(String testoAnnuncio, Integer prezzo, Date data, Boolean aperto) {
+		super();
+		this.testoAnnuncio = testoAnnuncio;
+		this.prezzo = prezzo;
+		this.data = data;
+		this.aperto = aperto;
+	}
 
 	public Long getId() {
 		return id;
@@ -63,12 +92,12 @@ public class Annuncio {
 		this.prezzo = prezzo;
 	}
 
-	public Date getDateCreated() {
-		return dateCreated;
+	public Date getData() {
+		return data;
 	}
 
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 	public Boolean getAperto() {
@@ -79,12 +108,12 @@ public class Annuncio {
 		this.aperto = aperto;
 	}
 
-	public Utente getUtenteInserimento() {
-		return utenteInserimento;
+	public Utente getUtente() {
+		return utente;
 	}
 
-	public void setUtenteInserimento(Utente utenteInserimento) {
-		this.utenteInserimento = utenteInserimento;
+	public void setUtente(Utente utente) {
+		this.utente = utente;
 	}
 
 	public Set<Categoria> getCategorie() {
@@ -93,6 +122,6 @@ public class Annuncio {
 
 	public void setCategorie(Set<Categoria> categorie) {
 		this.categorie = categorie;
-	} 
+	}
 
 }

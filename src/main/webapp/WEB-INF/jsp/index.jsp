@@ -55,7 +55,7 @@
 				    </div>
 				    <div class='card-body'>
 		
-							<form method="post" action="" class="row g-3" >
+							<form method="post" action="${pageContext.request.contextPath}/annuncio/list" class="row g-3" >
 							
 							
 								<div class="col-md-6">

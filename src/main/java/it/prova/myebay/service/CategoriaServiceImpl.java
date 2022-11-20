@@ -8,49 +8,64 @@ import org.springframework.transaction.annotation.Transactional;
 import it.prova.myebay.model.Categoria;
 import it.prova.myebay.repository.categoria.CategoriaRepository;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import it.prova.myebay.model.Categoria;
+import it.prova.myebay.repository.categoria.CategoriaRepository;
+
 @Service
-public class CategoriaServiceImpl implements CategoriaService {
+public class CategoriaServiceImpl implements CategoriaService{
 
 	@Autowired
-	private CategoriaRepository categoriaRepository;
-
-	@Transactional(readOnly = true)
-	public Categoria cercaPerDescrizioneECodice(String descrizione, String codice) {
-		return categoriaRepository.findByDescrizioneAndCodice(descrizione, codice);
-	}
-
-	@Transactional
-	public void inserisciNuovo(Categoria categoriaInstance) {
-		categoriaRepository.save(categoriaInstance);
-	}
-
+	private CategoriaRepository repository;
+	
+	@Override
 	@Transactional(readOnly = true)
 	public List<Categoria> listAll() {
-		return (List<Categoria>)categoriaRepository.findAll();
+		return (List<Categoria>) repository.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Categoria> listAllCategorie() {
-		return (List<Categoria>) categoriaRepository.findAll();
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Categoria caricaSingoloCategoria(Long id) {
-		return categoriaRepository.findById(id).orElse(null);
+	public Categoria caricaSingoloElemento(Long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	@Transactional
 	public void aggiorna(Categoria categoriaInstance) {
-		categoriaRepository.save(categoriaInstance);
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	@Transactional
+	public void inserisciNuovo(Categoria categoriaInstance) {
+		repository.save(categoriaInstance);
+		
 	}
 
 	@Override
 	@Transactional
 	public void rimuovi(Long idToDelete) {
-		categoriaRepository.deleteById(idToDelete);
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Categoria cercaPerDescrizioneECodice(String descrizione, String codice) {
+		return repository.findByDescrizioneAndCodice(descrizione, codice);
+	}
+
+	@Override
+	public List<Categoria> cercaCategorieByIds(Long[] ids) {
+		return repository.findAllCategorieByIds(ids);
 	}
 
 }

@@ -6,10 +6,10 @@ import it.prova.myebay.model.Acquisto;
 
 public interface AcquistoService {
 	
-	public List<Acquisto> listAllAcquisti() ;
+	public List<Acquisto> listAll();
 
-	public Acquisto caricaSingoloAcquisto(Long id);
-	
+	public Acquisto caricaSingoloElemento(Long id);
+
 	public void aggiorna(Acquisto acquistoInstance);
 
 	public void inserisciNuovo(Acquisto acquistoInstance);

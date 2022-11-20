@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,35 +13,47 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "acquisto")
+@Table(name = "acquisto")
 public class Acquisto {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 	@Column(name = "descrizione")
 	private String descrizione;
-	@Column(name = "dateCreated")
-	private Date dateCreated;
+	@Column(name = "data")
+	private Date data;
 	@Column(name = "prezzo")
 	private Integer prezzo;
-	
-	@ManyToOne
-	@JoinColumn(name="utente_id", nullable=false)
-	private Utente utenteAcquisto;
-	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "utente_id", nullable = false)
+	private Utente utente;
+
 	public Acquisto() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
-	public Acquisto(Long id, String descrizione, Date dateCreated, Integer prezzo, Utente utenteAcquisto) {
+	public Acquisto(Long id) {
+		super();
+		this.id = id;
+	}
+
+	public Acquisto(Long id, String descrizione, Date data, Integer prezzo, Utente utente) {
 		super();
 		this.id = id;
 		this.descrizione = descrizione;
-		this.dateCreated = dateCreated;
+		this.data = data;
 		this.prezzo = prezzo;
-		this.utenteAcquisto = utenteAcquisto;
+		this.utente = utente;
+	}
+
+	public Acquisto(String descrizione, Date data, Integer prezzo) {
+		super();
+		this.descrizione = descrizione;
+		this.data = data;
+		this.prezzo = prezzo;
 	}
 
 	public Long getId() {
@@ -59,12 +72,12 @@ public class Acquisto {
 		this.descrizione = descrizione;
 	}
 
-	public Date getDateCreated() {
-		return dateCreated;
+	public Date getData() {
+		return data;
 	}
 
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 	public Integer getPrezzo() {
@@ -75,15 +88,12 @@ public class Acquisto {
 		this.prezzo = prezzo;
 	}
 
-	public Utente getUtenteAcquisto() {
-		return utenteAcquisto;
+	public Utente getUtente() {
+		return utente;
 	}
 
-	public void setUtenteAcquisto(Utente utenteAcquisto) {
-		this.utenteAcquisto = utenteAcquisto;
+	public void setUtente(Utente utente) {
+		this.utente = utente;
 	}
-	
-	
-	
 
 }

@@ -63,4 +63,11 @@ public class CategoriaDTO {
 		}).collect(Collectors.toList());
 	}
 
+	@Override
+	public String toString() {
+		return descrizione;
+	}
+	
+	
+
 }
