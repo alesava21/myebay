@@ -7,8 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import it.prova.myebay.model.Categoria;
 import it.prova.myebay.model.Ruolo;
 import it.prova.myebay.model.Utente;
+import it.prova.myebay.service.CategoriaService;
 import it.prova.myebay.service.RuoloService;
 import it.prova.myebay.service.UtenteService;
 @SpringBootApplication
@@ -18,6 +20,8 @@ public class MyebayApplication implements CommandLineRunner{
 	private RuoloService ruoloServiceInstance;
 	@Autowired
 	private UtenteService utenteServiceInstance;
+	@Autowired
+	private CategoriaService categoriaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MyebayApplication.class, args);
@@ -31,6 +35,16 @@ public class MyebayApplication implements CommandLineRunner{
 
 		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", "ROLE_CLASSIC_USER") == null) {
 			ruoloServiceInstance.inserisciNuovo(new Ruolo("Classic User", "ROLE_CLASSIC_USER"));
+		}
+		
+		if (categoriaService.cercaPerDescrizioneECodice("Casa", "CASA_CATEGORIA") == null) {
+			categoriaService.inserisciNuovo(new Categoria("Casa","CASA_CATEGORIA"));
+		}
+		if (categoriaService.cercaPerDescrizioneECodice("Videogiochi", "VIDEOGIOCHI_CATEGORIA") == null) {
+			categoriaService.inserisciNuovo(new Categoria("Videogiochi","VIDEOGIOCHI_CATEGORIA"));
+		}
+		if (categoriaService.cercaPerDescrizioneECodice("Moda", "MODA_CATEGORIA") == null) {
+			categoriaService.inserisciNuovo(new Categoria("Moda","MODA_CATEGORIA"));
 		}
 
 		// a differenza degli altri progetti cerco solo per username perche' se vado

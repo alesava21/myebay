@@ -36,7 +36,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
     	 http.authorizeRequests()
          .antMatchers("/assets/**").permitAll()
-         .antMatchers("/login").permitAll()
+         .antMatchers("/","/home").permitAll()
          .antMatchers("/utente/**").hasRole("ADMIN")
          .antMatchers("/**").hasAnyRole("ADMIN", "CLASSIC_USER")
          //.antMatchers("/anonymous*").anonymous()
@@ -52,9 +52,10 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
          	.permitAll()
          .and()
          	.logout()
-         	.logoutSuccessUrl("/executeLogout")
+         	.logoutSuccessUrl("/home")
             .invalidateHttpSession(true)
             .permitAll()
+            
          .and()
             .csrf()
             .disable();

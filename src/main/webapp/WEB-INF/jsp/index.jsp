@@ -43,11 +43,11 @@
 					</div>
 			  
 			  <div class='card'>
-			  	<h1 class="display-2 text-center text-warning">BENVENUTO IN myEBAY</h1>
+			  	<h1 class="fw-bold text-center text-color= "><font color="#6610f2">Benvenuto in MyEbay</font></h1>
 			  		<div class="card">
 					  <div class="card-body">
-					  	<p>Benvenuto su <b class="text-warning">myEBAY</b>, da qui potrai acquistare ogni sorta di articolo che gli utenti mettono in mostra.
-					  	La navigazione e' libera, ma ricorda che per acquistare o pubblicare annunci bisogna registrarsi.</p>
+					  	<p>Benvenuto su <font color="#6F00FF">MyEbay</font>, qui, potrai trovare ogni sorta di articolo che ti serve, ma sopratutto potravi vendere qualsiasi articolo che tu voglia mettendo solo un annuncio.</p>
+					  	<p class="text-center"><font color="#fe0000">PER INSERIRE UN ANNUNCIO BISOGNA PRIMA REGISTRARSI</font></p>
 					  </div>
 					</div>
 				    <div class='card-header'>
@@ -55,7 +55,7 @@
 				    </div>
 				    <div class='card-body'>
 		
-							<form method="post" action="ExecuteSearchAnnuncioServlet" class="row g-3" >
+							<form method="post" action="" class="row g-3" >
 							
 							
 								<div class="col-md-6">
@@ -70,11 +70,11 @@
 								
 								<div class="col-md-12 form-check">
 									<p>Categorie:</p>
-									<c:forEach items="${search_categorie_attr}" var="categoriaEntry">
+									<c:forEach items="${categorie_list_attribute}" var="categoriaEntry">
 										<div class="form-check">
 											  <input class="form-check-input" name="categoriaEntry" type="checkbox" value="${categoriaEntry.id}" id="categoriaEntry-${categoriaEntry.id}">
 											  <label class="form-check-label" for="categoriaEntry-${categoriaEntry.id}" >
-											    ${categoriaEntry.codice}
+											    ${categoriaEntry.descrizione}
 											  </label>
 										</div>
 								  	</c:forEach>
