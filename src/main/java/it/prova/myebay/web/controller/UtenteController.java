@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.prova.myebay.dto.RuoloDTO;
 import it.prova.myebay.dto.UtenteDTO;
+import it.prova.myebay.model.StatoUtente;
 import it.prova.myebay.model.Utente;
 import it.prova.myebay.service.RuoloService;
 import it.prova.myebay.service.UtenteService;
@@ -112,4 +113,28 @@ public class UtenteController {
 		utenteService.changeUserAbilitation(idUtente);
 		return "redirect:/utente";
 	}
+	
+	@GetMapping("/registrazione")
+	public String registrazione(Model model) {
+		model.addAttribute("insert_utente_attr", new UtenteDTO());
+		return "utente/registrazione";
+	}
+
+	@PostMapping("/executeRegistrazione")
+	public String executeRegistrazione(
+			@Validated({ ValidationWithPassword.class,
+					ValidationNoPassword.class }) @ModelAttribute("insert_utente_attr") UtenteDTO utenteDTO,
+			BindingResult result, Model model, RedirectAttributes redirectAttrs) {
+
+		if (!result.hasFieldErrors("password") && !utenteDTO.getPassword().equals(utenteDTO.getConfermaPassword()))
+			result.rejectValue("confermaPassword", "password.diverse");
+		Utente utenteCreato=utenteDTO.buildUtenteModel(true);
+		utenteCreato.setStato(StatoUtente.CREATO);
+		utenteCreato.getRuoli().add(ruoloService.cercaPerDescrizioneECodice("Classic User", "ROLE_CLASSIC_USER"));
+		utenteService.inserisciNuovo(utenteCreato);
+		redirectAttrs.addFlashAttribute("successMessage", "Registrazione completata, in attesa di attivazione...");
+		return "redirect:/login";
+	}
+	
+	
 }

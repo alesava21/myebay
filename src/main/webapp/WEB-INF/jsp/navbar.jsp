@@ -11,6 +11,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/home">Home</a>
+            
           </li>
           <li class="nav-item">
 	          </li>
@@ -48,9 +49,10 @@
       
       <sec:authorize access="!isAuthenticated()">
 	      <div class="col-sm-1 text-end">
-	        <p class="navbar-text"><a href="${pageContext.request.contextPath}/login">Login</a></p>
+	        <p class="navbar-text"><a href="${pageContext.request.contextPath}/login">Login</a><br><a href="${pageContext.request.contextPath}/utente/registrazione">Registrazione</a></p>	       
 	      </div>
       </sec:authorize>
+      
     </div>
   </nav>
   

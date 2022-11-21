@@ -28,9 +28,11 @@
 			    <div class='card-header'>
 			        <h5>Lista dei risultati</h5> 
 			    </div>
+			    
 			    <div class='card-body'>
+			     <sec:authorize access="isAuthenticated()">
 			    	<a class="btn btn-primary " href="${pageContext.request.contextPath}/annuncio/insert">Add New</a>
-			    	
+			 	</sec:authorize>
 			    	<a href="${pageContext.request.contextPath}/home" class='btn btn-outline-secondary' >
 				            <i class='fa fa-chevron-left'></i> Torna alla Ricerca
 				        </a>
