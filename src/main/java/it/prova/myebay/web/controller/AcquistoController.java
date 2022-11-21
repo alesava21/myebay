@@ -46,5 +46,7 @@ public class AcquistoController {
 	public String searchAcquisto(Model model) {
 		return "acquisto/search";
 	}
+	
+	
 
 }

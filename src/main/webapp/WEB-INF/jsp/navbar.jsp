@@ -22,8 +22,7 @@
             <ul class="dropdown-menu" aria-labelledby="dropdown07">
               <li><a class="dropdown-item" href="${pageContext.request.contextPath}/annuncio/search">Gestione annunci</a></li>
               	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/annuncio/insert">Inserisci annunci</a></li>
-            		<li><a class="dropdown-item" href="${pageContext.request.contextPath}/acquisto">Acquisti effettuati</a></li>
-            		
+				<li><a class="dropdown-item" href="${pageContext.request.contextPath}/acquisto/search">Acquisti effettuati</a></li>            		
             </ul> 
           </li>
           </sec:authorize>

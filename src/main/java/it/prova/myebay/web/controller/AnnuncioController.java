@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -22,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import it.prova.myebay.dto.AcquistoDTO;
 import it.prova.myebay.dto.AnnuncioDTO;
 import it.prova.myebay.dto.CategoriaDTO;
 import it.prova.myebay.dto.RuoloDTO;
 import it.prova.myebay.dto.UtenteDTO;
+import it.prova.myebay.exception.CreditoInsifficiente;
 import it.prova.myebay.model.Annuncio;
+import it.prova.myebay.service.AcquistoService;
 import it.prova.myebay.service.AnnuncioService;
 import it.prova.myebay.service.CategoriaService;
 import it.prova.myebay.service.RuoloService;
@@ -47,6 +48,9 @@ public class AnnuncioController {
 	
 	@Autowired
 	private RuoloService ruoloService;
+	
+	@Autowired
+	private AcquistoService acquistoService;
 
 	@GetMapping
 	public ModelAndView listAllAnnunci() {
@@ -158,6 +162,27 @@ public class AnnuncioController {
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/annuncio/list";
+	}
+	
+	@PostMapping("/acquista")
+	public String acquisto(@RequestParam Long idAnnuncioForAcquisto, Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
+
+		UtenteDTO utenteInSessione = (UtenteDTO) request.getSession().getAttribute("userInfo");
+		
+		try {
+			annuncioService.acquista(idAnnuncioForAcquisto, utenteInSessione.buildUtenteModel(false));
+		}catch(CreditoInsifficiente ex){
+			redirectAttrs.addFlashAttribute("errorMessage", "Credito insufficiente.");
+			return "redirect:/annuncio";
+		}catch(Exception e) {
+			e.printStackTrace();
+			redirectAttrs.addFlashAttribute("errorMessage", "Si e' verificato un errore.");
+			return "redirect:/annuncio";
+		}
+		
+		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		model.addAttribute("acquisti_list_attribute", AcquistoDTO.createAcquistoDTOFromModelList(acquistoService.findAllAcquistiEagerUtente(utenteInSessione.getId()), true));
+		return "acquisto/list";
 	}
 	
 	

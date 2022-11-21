@@ -3,6 +3,7 @@ package it.prova.myebay.service;
 import java.util.List;
 
 import it.prova.myebay.model.Annuncio;
+import it.prova.myebay.model.Utente;
 
 public interface AnnuncioService {
 	
@@ -18,8 +19,12 @@ public interface AnnuncioService {
 
 	public void rimuovi(Long idToDelete);
 	
+	public void acquista(Long id, Utente utenteInstance);
+	
 	public List<Annuncio> findByExample(Annuncio example);
 	
 	public List<Annuncio> findByExampleEager(Annuncio example);
+	
+	
 
 }
