@@ -39,10 +39,12 @@
       </div>
       <sec:authorize access="isAuthenticated()">
 	      <div class="col-md-3 text-end">
-	        <p class="navbar-text">Utente: <sec:authentication property="name"/> (${userInfo.nome } ${userInfo.cognome })
+	        <p class="navbar-text">Utente: <sec:authentication property="name"/> (Credito: ${userInfo.creditoResiduo}$ ${userInfo.nome } ${userInfo.cognome })
+	        
 	    	 <a href="${pageContext.request.contextPath}/logout">Logout</a></p>
 	      </div>
       </sec:authorize>
+      
       
       <sec:authorize access="!isAuthenticated()">
 	      <div class="col-sm-1 text-end">

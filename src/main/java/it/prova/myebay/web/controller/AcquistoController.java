@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,6 +46,17 @@ public class AcquistoController {
 	@GetMapping("/search")
 	public String searchAcquisto(Model model) {
 		return "acquisto/search";
+	}
+	
+	@GetMapping("/show/{idAcquisto}")
+	public String showAnnuncio(HttpServletRequest request, @PathVariable(required = true) Long idAcquisto,
+			Model model) {
+		Acquisto acquistoModel = acquistoService.caricaSingoloElemento(idAcquisto);
+		UtenteDTO utenteInSessione = (UtenteDTO) request.getSession().getAttribute("userInfo");
+		acquistoModel.setUtente(utenteInSessione.buildUtenteModel(false));
+		AcquistoDTO result = AcquistoDTO.buildAcquistoDTOFromModel(acquistoModel, true);
+		model.addAttribute("show_acquisto_attr", result);
+		return "acquisto/show";
 	}
 	
 	
