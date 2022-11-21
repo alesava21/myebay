@@ -18,15 +18,13 @@ public class AcquistoServiceImpl implements AcquistoService{
 	@Override
 	@Transactional(readOnly = true)
 	public List<Acquisto> listAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<Acquisto>) repository.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Acquisto caricaSingoloElemento(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findById(id).orElse(null);
 	}
 
 	@Override
@@ -48,6 +46,16 @@ public class AcquistoServiceImpl implements AcquistoService{
 	public void rimuovi(Long idToDelete) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Acquisto> findByExample(Acquisto example) {
+		return repository.findByExample(example);
+	}
+
+	@Override
+	public List<Acquisto> findAllAcquistiEagerUtente(Long id) {
+		return repository.findAcquistiUtente(id);
 	}
 
 }

@@ -52,7 +52,7 @@
 										<td>
 										 <sec:authorize access="isAuthenticated()">
 											<a class="btn btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/annuncio/show/${annuncioItem.id }">Visualizza</a>
-											<a class="btn btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/annuncio/edit/${annuncioItem.id }">Modifica</a>
+											<a class="btn btn-sm btn btn-outline-warning" href="${pageContext.request.contextPath}/annuncio/edit/${annuncioItem.id }">Modifica</a>
 											<c:if test="${annuncioItem.aperto}">
 											 <sec:authorize access="hasRole('ADMIN')">
 												<a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/annuncio/delete/${annuncioItem.id }">Elimina</a>

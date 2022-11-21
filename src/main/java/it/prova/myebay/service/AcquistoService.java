@@ -15,5 +15,9 @@ public interface AcquistoService {
 	public void inserisciNuovo(Acquisto acquistoInstance);
 
 	public void rimuovi(Long idToDelete);
+	
+	public List<Acquisto> findByExample(Acquisto example);
+	
+	public List<Acquisto> findAllAcquistiEagerUtente(Long id);
 
 }
