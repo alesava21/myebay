@@ -29,9 +29,7 @@
 			        <h5>Lista dei risultati</h5> 
 			    </div>
 			    <div class='card-body'>
-			    		<sec:authorize access="hasRole('ADMIN')">		    
 			    	<a class="btn btn-primary " href="${pageContext.request.contextPath}/annuncio/insert">Add New</a>
-			    		</sec:authorize>
 			    	
 			    	<a href="${pageContext.request.contextPath}/home" class='btn btn-outline-secondary' >
 				            <i class='fa fa-chevron-left'></i> Torna alla Ricerca
@@ -52,12 +50,15 @@
 										<td>${annuncioItem.testoAnnuncio }</td>
 										<td>${annuncioItem.prezzo }</td>
 										<td>
-											<a class="btn btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/annuncio/showUtente/${annuncioItem.id }">Visualizza</a>
+										 <sec:authorize access="isAuthenticated()">
+											<a class="btn btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/annuncio/show/${annuncioItem.id }">Visualizza</a>
+											<a class="btn btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/annuncio/edit/${annuncioItem.id }">Modifica</a>
 											<c:if test="${annuncioItem.aperto}">
 											 <sec:authorize access="hasRole('ADMIN')">
 												<a class="btn btn-sm btn-outline-danger" href="${pageContext.request.contextPath}/annuncio/delete/${annuncioItem.id }">Elimina</a>
 											 </sec:authorize>
 											</c:if>
+										 </sec:authorize>
 										</td>
 									</tr>
 								</c:forEach>

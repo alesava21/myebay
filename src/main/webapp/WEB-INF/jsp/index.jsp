@@ -10,7 +10,7 @@
 	   
 	   <title>My Ebay</title>
 	 </head>
-	   <body class="d-flex flex-column h-100">
+	   <body class="d-flex flex-column h-100" style="background-color: #050402">
 	   
 	   		<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 			  <symbol id="people-circle" viewBox="0 0 16 16">
@@ -42,9 +42,9 @@
 					  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
 					</div>
 			  
-			  <div class='card'>
+			  <div class='card text-light' style="background-color: #050402">
 			  	<h1 class="fw-bold text-center text-color= "><font color="#6610f2">Benvenuto in MyEbay</font></h1>
-			  		<div class="card">
+			  		<div class="card" style="background-color: #050402">
 					  <div class="card-body">
 					  	<p>Benvenuto su <font color="#6F00FF">MyEbay</font>, qui, potrai trovare ogni sorta di articolo che ti serve, ma sopratutto potravi vendere qualsiasi articolo che tu voglia mettendo solo un annuncio.</p>
 					  	<p class="text-center"><font color="#fe0000">PER INSERIRE UN ANNUNCIO BISOGNA PRIMA REGISTRARSI</font></p>

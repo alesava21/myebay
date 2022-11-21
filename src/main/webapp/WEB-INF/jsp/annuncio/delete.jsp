@@ -16,14 +16,14 @@
 			<main class="flex-shrink-0">
 			  <div class="container">
 			  
-			  		<div class='card'>
-					    <div class='card-header'>
+			  		<div class='card' >
+					    <div class='card-header' >
 					        <h5>Sicuro di voler procedere all'eliminazione dell'annuncio?</h5>
 					    </div>
 					    
 					
 					    <div class='card-body'>
-					    	<dl class="row">
+					    	<dl class="row" >
 							  <dt class="col-sm-3 text-right">Id:</dt>
 							  <dd class="col-sm-9">${delete_annuncio_attr.id}</dd>
 					    	</dl>
@@ -47,12 +47,36 @@
 					    
 					    <div class='card-footer'>
 					    <form action="${pageContext.request.contextPath}/annuncio/executeDelete" method="post">
-					    	<input type="hidden" name="idAnnuncio" value="${delete_annuncio_attr.id}">
-					    	<button type="submit" name="submit" id="submit" class="btn btn-danger">Conferma</button>
-					        	<a href="${pageContext.request.contextPath }/index" class='btn btn-outline-secondary' style='width:80px'>
-					        	    <i class='fa fa-chevron-left'></i> Annulla
+					       		<!-- The Modal -->
+					       		
+					       		<a href="${pageContext.request.contextPath }/annuncio/list" class='btn btn-outline-secondary' style='width:80px'>
+					        	    <i class='fa fa-chevron-left'></i> Back
 					       		</a>
+					         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#myModal">Delete</button>
+							<div class="modal" id="myModal">
+  								<div class="modal-dialog">
+   									 <div class="modal-content">
+
+     						 <!-- Modal Header -->
+     						 
+     						 <div class="modal-header">
+       							 <h4 class="modal-title">Conferma Eliminazione</h4>
+      								  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+     						 </div>
+
+      						<!-- Modal body -->
+     						 <div class="modal-body"> Confermi Di Voler Eliminare il Biglietto?</div>
+
+     						 <!-- Modal footer -->
+      						<div class="modal-footer">
+        						 <button type="submit" class="btn btn-outline-success">Coferma</button>
+					    	<input type="hidden" name="idAnnuncio" value="${delete_annuncio_attr.id}">
+     					 				</div>
+    								</div>
+ 								 </div>
+							</div>
 					    </form>
+					    
 					    </div>
 					</div>	
 			  

@@ -32,8 +32,11 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 	@Override
 	@Transactional
 	public void aggiorna(Annuncio annuncioInstance) {
-		// TODO Auto-generated method stub
-		
+		Annuncio annuncioRicaricato= repository.findById(annuncioInstance.getId()).orElse(null);
+		annuncioRicaricato.setCategorie(annuncioInstance.getCategorie());
+		annuncioRicaricato.setPrezzo(annuncioInstance.getPrezzo());
+		annuncioRicaricato.setTestoAnnuncio(annuncioInstance.getTestoAnnuncio());
+		repository.save(annuncioRicaricato);
 	}
 
 	@Override

@@ -96,16 +96,6 @@ public class AnnuncioController {
 		return "annuncio/search";
 	}
 
-	@RequestMapping("/listUtente")
-	public String listAnnunciUtente(HttpServletRequest request, Annuncio annuncioExample, ModelMap model) {
-		UtenteDTO utenteInSessione = (UtenteDTO) request.getSession().getAttribute("userInfo");
-		annuncioExample.setUtente(utenteInSessione.buildUtenteModel(false));
-		model.addAttribute("annunci_list_attribute", AnnuncioDTO
-				.createAnnuncioDTOFromModelList(annuncioService.findByExampleEager(annuncioExample), true, false));
-
-		return "annuncio/listUtente";
-	}
-
 	@GetMapping("/insert")
 	public String create(Model model) {
 		model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
@@ -144,6 +134,31 @@ public class AnnuncioController {
 
 		annuncioService.rimuovi(idAnnuncio);
 		
+		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		return "redirect:/annuncio/list";
+	}
+	
+	@GetMapping("/edit/{idAnnuncio}")
+	public String edit(@PathVariable(required = true) Long idAnnuncio, Model model, HttpServletRequest request) {
+		AnnuncioDTO annuncioDTO = AnnuncioDTO.buildAnnuncioDTOFromModel(annuncioService.caricaSingoloElementoConCategorie(idAnnuncio), false, true);
+		model.addAttribute("edit_annuncio_attr", annuncioDTO);
+		model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
+		return "annuncio/edit";
+	}
+	
+	@PostMapping("/update")
+	public String update(@Valid @ModelAttribute("edit_annuncio_attr") AnnuncioDTO annuncioDTO,
+			BindingResult result, Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
+
+		if (result.hasErrors()) {
+			model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
+			return "annuncio/edit";
+		}
+		
+		UtenteDTO utenteInSessione = (UtenteDTO) request.getSession().getAttribute("userInfo");
+		annuncioDTO.setUtente(utenteInSessione);
+		annuncioService.aggiorna(annuncioDTO.buildAnnuncioModel(true));
+
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/annuncio/list";
 	}

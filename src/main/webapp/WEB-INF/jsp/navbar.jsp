@@ -13,17 +13,17 @@
             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/home">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
+	          </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li>
           <sec:authorize access="isAuthenticated()">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
             <ul class="dropdown-menu" aria-labelledby="dropdown07">
               <li><a class="dropdown-item" href="${pageContext.request.contextPath}/annuncio/search">Gestione annunci</a></li>
+              	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/annuncio/insert">Inserisci annunci</a></li>
             		<li><a class="dropdown-item" href="${pageContext.request.contextPath}/acquisto">Acquisti effettuati</a></li>
+            		
             </ul> 
           </li>
           </sec:authorize>
