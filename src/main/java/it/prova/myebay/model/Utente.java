@@ -105,6 +105,7 @@ public class Utente {
 		this.creditoResiduo = creditoResiduo;
 	}
 
+
 	public Long getId() {
 		return id;
 	}

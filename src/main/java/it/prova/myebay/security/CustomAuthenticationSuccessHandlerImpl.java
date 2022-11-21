@@ -31,6 +31,7 @@ public class CustomAuthenticationSuccessHandlerImpl implements AuthenticationSuc
 				utenteParziale.setNome(utenteFromDb.getNome());
 				utenteParziale.setCognome(utenteFromDb.getCognome());
 				utenteParziale.setId(utenteFromDb.getId());
+				utenteParziale.setCreditoResiduo(utenteFromDb.getCreditoResiduo());
 				request.getSession().setAttribute("userInfo", utenteParziale);
 				response.sendRedirect("home");
 

@@ -85,6 +85,10 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 		Annuncio annuncioDaAcquistare = repository.findById(id).orElse(null);
 		Utente utenteReloaded = utenteRepository.findById(utenteInstance.getId()).orElse(null);
 		
+		
+		System.out.println(utenteInstance);
+		System.out.println(annuncioDaAcquistare.getPrezzo());
+		
 		if(annuncioDaAcquistare == null)
 			throw new RuntimeException("Annuncio non trovato.");
 		
