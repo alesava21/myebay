@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.prova.myebay.dto.UtenteChangePassDTO;
 import it.prova.myebay.model.StatoUtente;
 import it.prova.myebay.model.Utente;
 import it.prova.myebay.repository.utente.UtenteRepository;
@@ -121,6 +122,14 @@ public class UtenteServiceImpl implements UtenteService {
 	@Transactional
 	public Utente findByUsername(String username) {
 		return repository.findByUsername(username).orElse(null);
+	}
+
+	@Override
+	public void cambiaPassword(String confermaNuovaPassword, String name) {
+		Utente utente = repository.findByUsername(name).orElse(null);
+		utente.setPassword(passwordEncoder.encode(confermaNuovaPassword));
+		repository.save(utente);
+		
 	}
 
 }

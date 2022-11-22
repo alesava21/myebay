@@ -2,6 +2,7 @@ package it.prova.myebay.service;
 
 import java.util.List;
 
+import it.prova.myebay.dto.UtenteChangePassDTO;
 import it.prova.myebay.model.Utente;
 
 public interface UtenteService {
@@ -27,5 +28,7 @@ public interface UtenteService {
 	public void changeUserAbilitation(Long utenteInstanceId);
 	
 	public Utente findByUsername(String username);
+	
+	public void cambiaPassword(String confermaNuovaPassword, String name);
 
 }

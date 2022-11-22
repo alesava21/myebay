@@ -21,7 +21,7 @@ import it.prova.myebay.validation.ValidationWithPassword;
 public class UtenteDTO {
 
 	private Long id;
-
+	
 	@NotBlank(message = "{username.notblank}", groups = { ValidationWithPassword.class, ValidationNoPassword.class })
 	private String username;
 
@@ -48,8 +48,19 @@ public class UtenteDTO {
 	private Set<Annuncio> annunci = new HashSet<>();
 
 	private Set<Acquisto> acquisti = new HashSet<>();
+	
+	private String vecchiaPassword;
 
 	public UtenteDTO() {
+	}
+	
+	public UtenteDTO(
+			@NotBlank(message = "{password.notblank}", groups = ValidationWithPassword.class) @Size(min = 8, max = 15, message = "Il valore inserito deve essere lungo tra {min} e {max} caratteri") String password,
+			String confermaPassword, String vecchiaPassword) {
+		super();
+		this.password = password;
+		this.confermaPassword = confermaPassword;
+		this.vecchiaPassword = vecchiaPassword;
 	}
 
 	public UtenteDTO(Long id, String username, String nome, String cognome, StatoUtente stato, Integer creditoResiduo) {
@@ -171,6 +182,14 @@ public class UtenteDTO {
 		return this.stato != null && this.stato.equals(StatoUtente.ATTIVO);
 	}
 
+	public String getVecchiaPassword() {
+		return vecchiaPassword;
+	}
+
+	public void setVecchiaPassword(String vecchiaPassword) {
+		this.vecchiaPassword = vecchiaPassword;
+	}
+	
 	public Utente buildUtenteModel(boolean includeIdRoles) {
 		Utente result = new Utente(this.id, this.username, this.password, this.nome, this.cognome, this.dateCreated,
 				this.creditoResiduo, this.stato);
