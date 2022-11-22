@@ -63,7 +63,7 @@ public class MyebayApplication implements CommandLineRunner{
 		}
 
 		if (utenteServiceInstance.findByUsername("user") == null) {
-			Utente classicUser = new Utente("user", "user", "Antonio", "Verdi", new Date());
+			Utente classicUser = new Utente("user", "user", "Antonio", "Verdi", new Date(),50000);
 			classicUser.getRuoli()
 					.add(ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", "ROLE_CLASSIC_USER"));
 			utenteServiceInstance.inserisciNuovo(classicUser);

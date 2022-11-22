@@ -1,6 +1,7 @@
 package it.prova.myebay.web.controller;
 
 
+import java.security.Principal;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ import it.prova.myebay.dto.RuoloDTO;
 import it.prova.myebay.dto.UtenteDTO;
 import it.prova.myebay.exception.CreditoInsifficiente;
 import it.prova.myebay.model.Annuncio;
+import it.prova.myebay.model.Utente;
 import it.prova.myebay.service.AcquistoService;
 import it.prova.myebay.service.AnnuncioService;
 import it.prova.myebay.service.CategoriaService;
@@ -165,25 +167,39 @@ public class AnnuncioController {
 	}
 	
 	@PostMapping("/acquista")
-	public String acquisto(@RequestParam Long idAnnuncioForAcquisto, Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
+	public String acquisto(@RequestParam Long idAnnuncioForAcquisto, Model model, RedirectAttributes redirectAttrs,
+			HttpServletRequest request) {
 
 		UtenteDTO utenteInSessione = (UtenteDTO) request.getSession().getAttribute("userInfo");
-		
+
 		try {
 			annuncioService.acquista(idAnnuncioForAcquisto, utenteInSessione.buildUtenteModel(false));
-		}catch(CreditoInsifficiente ex){
+		} catch (CreditoInsifficiente ex) {
 			redirectAttrs.addFlashAttribute("errorMessage", "Credito insufficiente.");
 			return "redirect:/annuncio";
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			redirectAttrs.addFlashAttribute("errorMessage", "Si e' verificato un errore.");
 			return "redirect:/annuncio";
 		}
-		
+
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
-		model.addAttribute("acquisti_list_attribute", AcquistoDTO.createAcquistoDTOFromModelList(acquistoService.findAllAcquistiEagerUtente(utenteInSessione.getId()), true));
+		model.addAttribute("acquisti_list_attribute", AcquistoDTO.createAcquistoDTOFromModelList(
+				acquistoService.findAllAcquistiEagerUtente(utenteInSessione.getId()), true));
 		return "acquisto/list";
 	}
+
+	@GetMapping("/acquistaWithoutAuth")
+	public String acquistaWithoutAuth(@RequestParam(required = true) Long idAnnuncioWithNoAuth,
+			Model model, RedirectAttributes redirectAttrs,HttpServletRequest request, Principal principal) {
+		System.out.println("maledetto   "+idAnnuncioWithNoAuth);
+		if (principal != null) {
+			return this.acquisto(idAnnuncioWithNoAuth, model, redirectAttrs, request);
+		}
+		model.addAttribute("idAnnuncioWithNoAuth", idAnnuncioWithNoAuth);
+		return "/login";
+	}
+
 	
 	
 
