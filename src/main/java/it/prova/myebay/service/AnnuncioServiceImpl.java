@@ -94,29 +94,30 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 
 	@Override
 	@Transactional
-	public void acquista(Long id, Utente utenteInstance) {
+	public void acquista(Long id, String username) {
 		Annuncio annuncioDaAcquistare = repository.findById(id).orElse(null);
-		Utente utenteReloaded = utenteRepository.findById(utenteInstance.getId()).orElse(null);
+		
+		if(username == null)
+			throw new RuntimeException();
+		Utente utente=utenteRepository.findByUsername(username).orElse(null);
+		Utente utenteReloaded = utenteRepository.findById(utente.getId()).orElse(null);
 		
 		
 		
 		if(annuncioDaAcquistare == null)
 			throw new RuntimeException("Annuncio non trovato.");
 		
-		if(utenteReloaded == null)
-			throw new RuntimeException("Utente non trovato.");
-		
-		if(utenteInstance.getCreditoResiduo() < annuncioDaAcquistare.getPrezzo())
+		if(utente.getCreditoResiduo() < annuncioDaAcquistare.getPrezzo())
 			throw new CreditoInsifficiente("Credito residuo insufficiente per effettuare l'acquisto.");
 		
-		int creditoAggiornato = utenteInstance.getCreditoResiduo() - annuncioDaAcquistare.getPrezzo();
+		int creditoAggiornato = utente.getCreditoResiduo() - annuncioDaAcquistare.getPrezzo();
 		
 		utenteReloaded.setCreditoResiduo(creditoAggiornato);
 		utenteRepository.save(utenteReloaded);
 		
 		annuncioDaAcquistare.setAperto(false);
 		
-		Acquisto nuovoAcquisto = new Acquisto(annuncioDaAcquistare.getTestoAnnuncio(), new Date(), annuncioDaAcquistare.getPrezzo(), utenteInstance);
+		Acquisto nuovoAcquisto = new Acquisto(annuncioDaAcquistare.getTestoAnnuncio(), new Date(), annuncioDaAcquistare.getPrezzo(), utente);
 		
 		acquistoRepository.save(nuovoAcquisto);
 		

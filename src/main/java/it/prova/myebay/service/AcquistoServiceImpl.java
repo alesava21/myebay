@@ -7,13 +7,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.myebay.model.Acquisto;
+import it.prova.myebay.model.Utente;
 import it.prova.myebay.repository.acquisto.AcquistoRepository;
+import it.prova.myebay.repository.utente.UtenteRepository;
 
 @Service
 public class AcquistoServiceImpl implements AcquistoService{
 
 	@Autowired
 	private AcquistoRepository repository;
+	
+	@Autowired
+	UtenteRepository utenteRepository;
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -54,8 +59,9 @@ public class AcquistoServiceImpl implements AcquistoService{
 	}
 
 	@Override
-	public List<Acquisto> findAllAcquistiEagerUtente(Long id) {
-		return repository.findAcquistiUtente(id);
+	public List<Acquisto> findAllAcquistiEagerUtente(String username) {
+		Utente utente = utenteRepository.findByUsername(username).orElse(null);
+		return repository.findAcquistiUtente(utente.getId());
 	}
 
 }

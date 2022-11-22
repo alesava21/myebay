@@ -143,9 +143,6 @@ public class AnnuncioController {
 			model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
 			return "annuncio/edit";
 		}
-		
-		UtenteDTO utenteInSessione = (UtenteDTO) request.getSession().getAttribute("userInfo");
-		annuncioDTO.setUtente(utenteInSessione);
 		annuncioService.aggiorna(annuncioDTO.buildAnnuncioModel(true), principal.getName());
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
@@ -154,12 +151,11 @@ public class AnnuncioController {
 	
 	@PostMapping("/acquista")
 	public String acquisto(@RequestParam Long idAnnuncioForAcquisto, Model model, RedirectAttributes redirectAttrs,
-			HttpServletRequest request) {
+			HttpServletRequest request, Principal principal) {
 
-		UtenteDTO utenteInSessione = (UtenteDTO) request.getSession().getAttribute("userInfo");
 
 		try {
-			annuncioService.acquista(idAnnuncioForAcquisto, utenteInSessione.buildUtenteModel(false));
+			annuncioService.acquista(idAnnuncioForAcquisto, principal.getName());
 		} catch (CreditoInsifficiente ex) {
 			redirectAttrs.addFlashAttribute("errorMessage", "Credito insufficiente.");
 			return "redirect:/annuncio";
@@ -171,7 +167,7 @@ public class AnnuncioController {
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		model.addAttribute("acquisti_list_attribute", AcquistoDTO.createAcquistoDTOFromModelList(
-				acquistoService.findAllAcquistiEagerUtente(utenteInSessione.getId()), true));
+				acquistoService.findAllAcquistiEagerUtente(principal.getName()), true));
 		return "acquisto/list";
 	}
 
@@ -180,7 +176,7 @@ public class AnnuncioController {
 			Model model, RedirectAttributes redirectAttrs,HttpServletRequest request, Principal principal) {
 		System.out.println("maledetto   "+idAnnuncioWithNoAuth);
 		if (principal != null) {
-			return this.acquisto(idAnnuncioWithNoAuth, model, redirectAttrs, request);
+			return this.acquisto(idAnnuncioWithNoAuth, model, redirectAttrs, request, principal);
 		}
 		model.addAttribute("idAnnuncioWithNoAuth", idAnnuncioWithNoAuth);
 		return "/login";

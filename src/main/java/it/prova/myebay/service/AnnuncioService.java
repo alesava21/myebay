@@ -21,7 +21,7 @@ public interface AnnuncioService {
 
 	public void rimuovi(Long idToDelete);
 	
-	public void acquista(Long id, Utente utenteInstance);
+	public void acquista(Long id, String username);
 	
 	public List<Annuncio> findByExample(Annuncio example);
 	
