@@ -26,7 +26,16 @@
 				<li><a class="dropdown-item" href="${pageContext.request.contextPath}/acquisto/search">Acquisti effettuati</a></li>            		
             </ul> 
           </li>
+          
           </sec:authorize>
+          
+           <li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestione Utenze</a>
+		        <div class="dropdown-menu" aria-labelledby="dropdown01">
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/utente/search">Ricerca Utenti</a>
+		          <a class="dropdown-item" href="${pageContext.request.contextPath}/utente/insert">Inserisci Utente</a>
+		        </div>
+		      </li>
            <sec:authorize access="hasRole('ADMIN')">
 		      <li class="nav-item dropdown">
 		        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestione Utenze</a>
@@ -38,13 +47,21 @@
 		   </sec:authorize>
         </ul>
       </div>
+      
       <sec:authorize access="isAuthenticated()">
 	      <div class="col-md-3 text-end">
-	        <p class="navbar-text">Utente: <sec:authentication property="name"/> (Credito: ${userInfo.creditoResiduo}$ ${userInfo.nome } ${userInfo.cognome })
-	        
-	    	 <a href="${pageContext.request.contextPath}/logout">Logout</a></p>
+	       <li class="nav-item dropdown text-primary">
+            <a style="margin-top: -25px" class="nav-link dropdown-toggle text-light" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown07">
+             <li> <p class="navbar-text text-center" style = "color:black">Utente: <sec:authentication property="name"/> (Credito: ${userInfo.creditoResiduo}$ ${userInfo.nome } ${userInfo.cognome })</p>
+              <li> <div class="dropdown-divider" ></div><a class="dropdown-item" href="${pageContext.request.contextPath}/annuncio/search">Gestione annunci</a></li>
+              	<li><a class="dropdown-item" href="${pageContext.request.contextPath}/annuncio/insert">Inserisci annunci</a></li>
+				<li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a></li>            		
+            </ul> 
+          </li>
 	      </div>
       </sec:authorize>
+      
       
       
       <sec:authorize access="!isAuthenticated()">
