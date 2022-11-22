@@ -1,5 +1,6 @@
 package it.prova.myebay.service;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
@@ -43,8 +44,14 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 
 	@Override
 	@Transactional
-	public void aggiorna(Annuncio annuncioInstance) {
+	public void aggiorna(Annuncio annuncioInstance, String username) {
+		
+		if (username == null)
+			throw new RuntimeException();
+			
+	Utente utenteInSessioneUtente =	utenteRepository.findByUsername(username).orElse(null);
 		Annuncio annuncioRicaricato= repository.findById(annuncioInstance.getId()).orElse(null);
+		annuncioRicaricato.setUtente(utenteInSessioneUtente);
 		annuncioRicaricato.setCategorie(annuncioInstance.getCategorie());
 		annuncioRicaricato.setPrezzo(annuncioInstance.getPrezzo());
 		annuncioRicaricato.setTestoAnnuncio(annuncioInstance.getTestoAnnuncio());

@@ -137,7 +137,7 @@ public class AnnuncioController {
 	
 	@PostMapping("/update")
 	public String update(@Valid @ModelAttribute("edit_annuncio_attr") AnnuncioDTO annuncioDTO,
-			BindingResult result, Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
+			BindingResult result, Model model, RedirectAttributes redirectAttrs, HttpServletRequest request, Principal principal) {
 
 		if (result.hasErrors()) {
 			model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
@@ -146,7 +146,7 @@ public class AnnuncioController {
 		
 		UtenteDTO utenteInSessione = (UtenteDTO) request.getSession().getAttribute("userInfo");
 		annuncioDTO.setUtente(utenteInSessione);
-		annuncioService.aggiorna(annuncioDTO.buildAnnuncioModel(true));
+		annuncioService.aggiorna(annuncioDTO.buildAnnuncioModel(true), principal.getName());
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/annuncio/list";

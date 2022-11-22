@@ -2,6 +2,8 @@ package it.prova.myebay.service;
 
 import java.util.List;
 
+import org.hibernate.annotations.common.util.StringHelper;
+
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.model.Utente;
 
@@ -13,7 +15,7 @@ public interface AnnuncioService {
 	
 	public Annuncio caricaSingoloElementoConCategorie(Long id);
 
-	public void aggiorna(Annuncio annuncioInstance);
+	public void aggiorna(Annuncio annuncioInstance, String username);
 
 	public void inserisciNuovo(Annuncio annuncioInstance, String username);
 
