@@ -2,6 +2,7 @@ package it.prova.myebay.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,6 +135,16 @@ public class UtenteController {
 		utenteService.inserisciNuovo(utenteCreato);
 		redirectAttrs.addFlashAttribute("successMessage", "Registrazione completata, in attesa di attivazione...");
 		return "redirect:/login";
+	}
+	
+	@PostMapping("/resetPassword")
+	public String resetPassword(@RequestParam(name = "idUtenteForPasswordReset", required = true) String idUtente, RedirectAttributes redirectAttrs) {
+		if (idUtente != null && NumberUtils.isCreatable(idUtente)) {
+			utenteService.cambiaPassword(Long.parseLong(idUtente));
+			redirectAttrs.addFlashAttribute("successMessage", "Password resettata con successo");
+		}else
+			redirectAttrs.addFlashAttribute("errorMessage", "Password non resettata");
+		return "redirect:/utente";
 	}
 	
 	
