@@ -51,7 +51,7 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 
 	@Override
 	@Transactional
-	public void inserisciNuovo(Annuncio annuncioInstance) {
+	public void inserisciNuovo(Annuncio annuncioInstance) {	
 		repository.save(annuncioInstance);
 		
 	}
@@ -85,8 +85,6 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 		Utente utenteReloaded = utenteRepository.findById(utenteInstance.getId()).orElse(null);
 		
 		
-		System.out.println(utenteInstance);
-		System.out.println(annuncioDaAcquistare.getPrezzo());
 		
 		if(annuncioDaAcquistare == null)
 			throw new RuntimeException("Annuncio non trovato.");
