@@ -88,16 +88,6 @@ public class AnnuncioController {
 				CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
 		return "annuncio/search";
 	}
-	
-	@RequestMapping("/listUtente")
-	public String listAnnunciUtente(HttpServletRequest request, Annuncio annuncioExample, ModelMap model) {
-		UtenteDTO utenteInSessione = (UtenteDTO) request.getSession().getAttribute("userInfo");
-		annuncioExample.setUtente(utenteInSessione.buildUtenteModel(false));
-		model.addAttribute("annunci_list_attribute", AnnuncioDTO
-				.createAnnuncioDTOFromModelList(annuncioService.findByExampleEager(annuncioExample), true, false));
-
-		return "annuncio/listUtente";
-	}
 
 	@GetMapping("/insert")
 	public String create(Model model) {
@@ -108,18 +98,14 @@ public class AnnuncioController {
 
 	@PostMapping("/save")
 	public String save(@Valid @ModelAttribute("insert_annuncio_attr")@RequestParam(name = "utenteId")Long utenteId, AnnuncioDTO annuncioDTO,
-			BindingResult result, Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
+			BindingResult result, Model model, RedirectAttributes redirectAttrs, HttpServletRequest request, Principal principal) {
 
 		if (result.hasErrors()) {
 			model.addAttribute("ruoli_totali_attr", RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()));
 			return "annuncio/insert";
 		}
 		
-		annuncioDTO.setData(new Date());
-		annuncioDTO.setAperto(true);
-		annuncioDTO.setUtente(UtenteDTO.buildUtenteDTOFromModel
-				(utenteService.caricaSingoloUtente(utenteId), true));
-		annuncioService.inserisciNuovo(annuncioDTO.buildAnnuncioModel(true));
+		annuncioService.inserisciNuovo(annuncioDTO.buildAnnuncioModel(true), principal.getName());
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/annuncio/list";

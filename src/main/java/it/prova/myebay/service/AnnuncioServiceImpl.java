@@ -26,6 +26,8 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 	
 	@Autowired
 	private AcquistoRepository acquistoRepository;
+	
+	
 
 	@Override
 	@Transactional(readOnly = true)
@@ -51,9 +53,14 @@ public class AnnuncioServiceImpl implements AnnuncioService{
 
 	@Override
 	@Transactional
-	public void inserisciNuovo(Annuncio annuncioInstance) {	
+	public void inserisciNuovo(Annuncio annuncioInstance, String username) {	
+		annuncioInstance.setData(new Date());
+		annuncioInstance.setAperto(true);
+		if (username != null) {
+		Utente utente=utenteRepository.findByUsername(username).orElse(null);
+			annuncioInstance.setUtente(utente);
+		}
 		repository.save(annuncioInstance);
-		
 	}
 
 	@Override
